@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.omnirosewatchtimerapp472712" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name/>
+<widget id="com.omnirose.watch-timer-app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>OmniRose watch timer</name>
   <description>
-        An Ionic Framework and Cordova project.
+        A simple timer for people standing watch on ships.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="hello@omnirose.com" href="http://www.omnirose.com/">
+      OmniRose
     </author>
   <content src="index.html"/>
   <access origin="*"/>

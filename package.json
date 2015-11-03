@@ -1,7 +1,7 @@
 {
-  "name": "",
-  "version": "1.0.0",
-  "description": ": An Ionic project",
+  "name": "OmniRose watch timer",
+  "version": "0.0.1",
+  "description": "A simple timer for people standing watch on ships",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
