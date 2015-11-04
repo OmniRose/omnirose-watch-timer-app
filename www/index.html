@@ -26,6 +26,8 @@
             id="timer-current-time"
             on-tap="timer.start()"
             on-hold="timer.stop()"
+            on-swipe-up="timer.increment()"
+            on-swipe-down="timer.decrement()"
           >
             <span
               resize-text-to-fill
@@ -35,8 +37,10 @@
             </span>
           </div>
 
-          <button class="button button-icon icon ion-gear-b"></button>
-          <button ng-click="timer.toggle()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
+          <button class="button button-outline button-icon icon ion-gear-b"></button>
+          <button ng-click="timer.toggle()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-outline button-icon icon"></button>
+          <button ng-click="timer.increment()" class="button button-icon button-outline icon ion-plus"></button>
+          <button ng-click="timer.decrement()" class="button button-icon button-outline icon ion-minus"></button>
 
 
         </div>
