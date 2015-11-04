@@ -22,7 +22,7 @@
 
           <button ng-click="timer.toggle()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
 
-          <div><span>{{ timer.getFormattedTime() }}</span></div>
+          <div><span on-tap="timer.start()" on-hold="timer.stop()">{{ timer.getFormattedTime() }}</span></div>
         </div>
       </ion-content>
     </ion-pane>
