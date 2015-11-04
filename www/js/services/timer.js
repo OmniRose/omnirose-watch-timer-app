@@ -17,7 +17,7 @@
 
     timer.end_time = undefined;
     timer.time_last_button_pressed = undefined; // TODO - wire this up
-    timer.duration = 9 * 60 + 10; //15 * 60 + 0.2;
+    timer.duration = 15 * 60;
 
     timer.record_button_press = function () {
       timer.time_last_button_pressed = new Date();
