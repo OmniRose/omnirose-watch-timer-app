@@ -13,7 +13,7 @@ angular.module('WatchTimer', ['ionic'])
   });
 })
 
-.controller('TimerController', function ($scope, $interval, timer) {
+.controller('TimerController', function ($scope, timer) {
   var controller = this;
 
   $scope.timer = timer;
