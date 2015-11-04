@@ -3,7 +3,6 @@ angular.module('WatchTimer')
   var timer = this;
 
   timer.isRunning = false;
-  timer.interval_promise = undefined;
 
   timer.start_time = new Date();
   timer.duration = 9 * 60 + 10; //15 * 60 + 0.2;
@@ -12,16 +11,8 @@ angular.module('WatchTimer')
     timer.start_time = new Date();
     timer.isRunning = true;
 
-    if (! timer.interval_promise) {
-      // put the rootScope.$apply inside a timeout so that it does not clash
-      // with any other apply cycle.
-      $timeout(function () {
-        timer.interval_promise = $interval(
-          $rootScope.$apply(), // just tell it that the time will have changed
-          1000
-        );
-      });
-    }
+    // start the
+    timer.pokeScope();
   };
 
   timer.stop = function () {
@@ -29,6 +20,21 @@ angular.module('WatchTimer')
     if (timer.interval_promise) {
       $interval.cancel(timer.interval_promise);
     }
+  };
+
+  timer.pokeScope = function () {
+    // If the timer is no longer running then no need to update
+    if (!timer.isRunning) {
+      return;
+    }
+
+    // use $timeout to run the $apply so that we don't conflict with any other
+    // loop that is running.
+    $timeout(function () {$rootScope.$apply();});
+
+    // how long until the next update
+    var delay = Math.ceil(timer.remaining() % 1 * 1000);
+    $timeout(timer.pokeScope, delay);
   };
 
   timer.getFormattedTime = function ( ) {
