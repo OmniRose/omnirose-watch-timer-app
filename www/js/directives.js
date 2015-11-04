@@ -3,35 +3,48 @@ angular.module('WatchTimer')
     return {
       link: function (scope, element, attrs, controller, transcludeFn) {
 
+        var initial_font_size = 10;
         var font_size_increment = 20;
-        var max_height = $document.height() - font_size_increment;
-        var max_width  = $document.width()  - font_size_increment;
 
-        var set_size = function (fontSize) {
+        var safety_counter_max = 100;
+
+        function set_size (font_size) {
           element.css({
-            fontSize: fontSize + "px",
-            lineHeight: fontSize + "px" // digits don't need more than this
+            fontSize:   font_size + "px",
+            lineHeight: font_size + "px" // digits don't need more than this
           });
-        };
+        }
 
-        $timeout(function () {
-          var fontSize = 10;
+        function resize_to_fit () {
+          var font_size = initial_font_size;
+          var max_height = $document.height() - font_size_increment;
+          var max_width  = $document.width()  - font_size_increment;
           var safety_counter = 0;
-          var safety_counter_max = 100;
 
-          while (element.height() <= max_height && element.width() <= max_width && safety_counter < safety_counter_max ) {
+          set_size(font_size);
+
+          while (
+            element.height() <= max_height
+            && element.width() <= max_width
+            && safety_counter < safety_counter_max
+          ) {
             safety_counter++;
-            fontSize += font_size_increment;
-            set_size(fontSize);
+            font_size += font_size_increment;
+            set_size(font_size);
           }
 
           // go back down one size so we know it fits
-          fontSize -= font_size_increment;
-          set_size(fontSize);
+          font_size -= font_size_increment;
+          set_size(font_size);
+        }
 
-          console.log({safety_counter: safety_counter, fontSize: fontSize});
+        $timeout(function () {
+          resize_to_fit();
         });
 
+        // 'resize' as the chrome dev toolkit does not trigger an
+        // 'orientationchange' event when switching between oriantations.
+        $(window).on("resize", resize_to_fit);
 
       }
     };
