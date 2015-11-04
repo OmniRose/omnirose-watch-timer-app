@@ -16,6 +16,7 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 #timer-current-time {
+  font-weight: bold;
   text-align: center;
   white-space: nowrap; }
 
