@@ -14,7 +14,7 @@ var paths = {
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/day.scss')
+  gulp.src(['./scss/day.scss','./scss/night.scss'])
     .pipe(sass())
     .on('error', sass.logError)
     .pipe(gulp.dest('./www/css/'))
