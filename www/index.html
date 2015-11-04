@@ -16,9 +16,14 @@
 
     <ion-pane>
       <ion-content>
-        <button class="button button-icon icon ion-gear-b"></button>
-        <button class="button button-icon icon ion-close"></button>
-        <div>12:34</div>
+        <div ng-controller="TimerController">
+          <button class="button button-icon icon ion-gear-b"></button>
+
+          <button ng-hide="timer.isRunning" ng-click="timer.start()" class="button button-icon icon ion-play"></button>
+          <button ng-show="timer.isRunning" ng-click="timer.stop()"  class="button button-icon icon ion-stop"></button>
+
+          <div>b: <span>{{ timer.getFormattedTime() }}</span></div>
+        </div>
       </ion-content>
     </ion-pane>
 
