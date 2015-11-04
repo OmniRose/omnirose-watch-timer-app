@@ -20,8 +20,7 @@
         <div ng-controller="TimerController">
           <button class="button button-icon icon ion-gear-b"></button>
 
-          <button ng-hide="timer.isRunning" ng-click="timer.start()" class="button button-icon icon ion-play"></button>
-          <button ng-show="timer.isRunning" ng-click="timer.stop()"  class="button button-icon icon ion-stop"></button>
+          <button ng-click="timer.toggle()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
 
           <div><span>{{ timer.getFormattedTime() }}</span></div>
         </div>

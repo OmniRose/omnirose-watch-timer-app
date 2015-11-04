@@ -22,6 +22,10 @@ angular.module('WatchTimer')
     }
   };
 
+  timer.toggle = function () {
+    timer.isRunning ? timer.stop() : timer.start();
+  };
+
   timer.pokeScope = function () {
     // If the timer is no longer running then no need to update
     if (!timer.isRunning) {
