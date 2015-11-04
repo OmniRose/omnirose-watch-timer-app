@@ -13,8 +13,15 @@ angular.module('WatchTimer', ['ionic'])
   });
 })
 
-.controller('TimerController', function ($scope, timer) {
-  var controller = this;
+.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/')
 
-  $scope.timer = timer;
+  $stateProvider.state('timer', {
+    url: '/',
+    templateUrl: 'templates/timer.html',
+    controller: function ($scope, timer) {
+      $scope.timer = timer;
+    }
+  });
 });
+
