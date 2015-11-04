@@ -32,8 +32,9 @@
 
       timer.isRunning = true;
 
-      // start the
-      timer.pokeScope();
+      // use $timeout so that this runs after we're finished so it does not
+      // conflict with our dispatch run
+      $timeout(timer.pokeScope);
     };
 
     timer.stop = function () {
@@ -73,18 +74,16 @@
     };
 
     timer.pokeScope = function () {
-      // If the timer is no longer running then no need to update
-      if (!timer.isRunning) {
-        return;
+
+      // Tell the scope to check for changes
+      $rootScope.$apply();
+
+      // If the timer is running then need to update later
+      if (timer.isRunning) {
+        // how long until the next update
+        var delay = Math.ceil(timer.remaining() % 1 * 1000);
+        $timeout(timer.pokeScope, delay);
       }
-
-      // use $timeout to run the $apply so that we don't conflict with any other
-      // loop that is running.
-      $timeout(function () {$rootScope.$apply();});
-
-      // how long until the next update
-      var delay = Math.ceil(timer.remaining() % 1 * 1000);
-      $timeout(timer.pokeScope, delay);
     };
 
     timer.getFormattedTime = function ( ) {
