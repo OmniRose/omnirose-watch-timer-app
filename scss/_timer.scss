@@ -2,4 +2,11 @@
   font-weight: bold;
   text-align: center;
   white-space: nowrap;;
+
+  // Center content vertically and horizontally
+  // see https://css-tricks.com/centering-percentage-widthheight-elements/
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

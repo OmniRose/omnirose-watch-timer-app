@@ -18,7 +18,11 @@ $dark:                            #444 !default;
 #timer-current-time {
   font-weight: bold;
   text-align: center;
-  white-space: nowrap; }
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
 
 /*!
   Ionicons, v2.0.1
