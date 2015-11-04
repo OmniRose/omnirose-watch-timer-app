@@ -14,7 +14,7 @@ angular.module('WatchTimer', ['ionic'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/')
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('timer', {
     url: '/',
@@ -23,5 +23,11 @@ angular.module('WatchTimer', ['ionic'])
       $scope.timer = timer;
     }
   });
+
+  $stateProvider.state('settings', {
+    url: '/settings',
+    templateUrl: 'templates/settings.html'
+  });
+
 });
 
