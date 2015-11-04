@@ -1,3 +1,11 @@
 
-@import "_day_and_night.scss";
+$base-background-color:           #000;
+$base-color:                      #500;
 
+$light: $base-background-color;
+$button-default-text: $base-color;
+$button-light-text:   $base-color;
+$button-light-border: $base-color;
+
+
+@import "_day_and_night.scss";
