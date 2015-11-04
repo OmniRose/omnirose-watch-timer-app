@@ -11,19 +11,34 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="cordova.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/directives.js"></script>
     <script src="js/services/timer.js"></script>
+
 
   </head>
   <body ng-app="WatchTimer">
 
     <ion-pane>
-      <ion-content>
+      <ion-content scroll="false">
         <div ng-controller="TimerController">
-          <button class="button button-icon icon ion-gear-b"></button>
 
+          <div
+            id="timer-current-time"
+            on-tap="timer.start()"
+            on-hold="timer.stop()"
+          >
+            <span
+              resize-text-to-fill
+              ng-cloak
+            >
+              {{ timer.getFormattedTime() }}
+            </span>
+          </div>
+
+          <button class="button button-icon icon ion-gear-b"></button>
           <button ng-click="timer.toggle()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
 
-          <div><span on-tap="timer.start()" on-hold="timer.stop()">{{ timer.getFormattedTime() }}</span></div>
+
         </div>
       </ion-content>
     </ion-pane>
