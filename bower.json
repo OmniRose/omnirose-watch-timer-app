@@ -1,13 +1,13 @@
 {
-  "name": "OmniRose watch timer",
-  "private": "true",
-  "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0"
-  },
-  "dependencies": {
-    "jquery": "jQuery#~2.1.4",
-    "underscore": "~1.8.3",
-    "ngCordova": "~0.1.20-alpha",
-    "howler.js": "howler#~2"
-  }
+    "dependencies": {
+        "howler.js": "howler#~2",
+        "jquery": "jQuery#~2.1.4",
+        "ngCordova": "~0.1.20-alpha",
+        "underscore": "~1.8.3"
+    },
+    "devDependencies": {
+        "ionic": "driftyco/ionic-bower#1.1.0"
+    },
+    "name": "OmniRose watch timer",
+    "private": "true"
 }

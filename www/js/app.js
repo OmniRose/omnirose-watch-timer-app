@@ -4,10 +4,10 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
+    if (window.StatusBar) {
       StatusBar.styleDefault();
     }
   });
@@ -19,7 +19,7 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   $stateProvider.state('timer', {
     url: '/',
     templateUrl: 'templates/timer.html',
-    controller: function ($scope, timer) {
+    controller: function($scope, timer) {
       $scope.timer = timer;
     }
   });
@@ -30,4 +30,3 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   });
 
 });
-
