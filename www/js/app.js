@@ -1,4 +1,4 @@
-angular.module('WatchTimer', ['ionic'])
+angular.module('WatchTimer', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
