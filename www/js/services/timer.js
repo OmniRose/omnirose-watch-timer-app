@@ -14,10 +14,21 @@
     var timer = this;
 
     timer.isRunning = false;
+    timer.current_state = 'stopped';
 
     timer.end_time = undefined;
     timer.time_last_button_pressed = undefined; // TODO - wire this up
-    timer.duration = 15 * 60;
+    timer.duration = 125; // 15 * 60;
+
+    // listed in ascending cutoff order so that the code in determine_state
+    // will work correctly.
+    timer.states = [
+      {name: "alarming",  cutoff: -3 * 60},
+      {name: "alerting",  cutoff: 0},
+      {name: "notifying", cutoff: 2 * 60 },
+      {name: "running",   cutoff: 1000000000 },
+      {name: "stopped",   cutoff: undefined },
+    ];
 
     timer.record_button_press = function () {
       timer.time_last_button_pressed = new Date();
@@ -34,12 +45,13 @@
 
       // use $timeout so that this runs after we're finished so it does not
       // conflict with our dispatch run
-      $timeout(timer.pokeScope);
+      $timeout(timer.monitor_changes);
     };
 
     timer.stop = function () {
       timer.record_button_press();
       timer.isRunning = false;
+      $timeout(timer.monitor_changes);
     };
 
     timer.increment = function () {
@@ -73,7 +85,9 @@
       timer.isRunning ? timer.stop() : timer.start();
     };
 
-    timer.pokeScope = function () {
+    timer.monitor_changes = function () {
+
+      timer.determine_state();
 
       // Tell the scope to check for changes
       $rootScope.$apply();
@@ -82,17 +96,31 @@
       if (timer.isRunning) {
         // how long until the next update
         var delay = Math.ceil(timer.remaining() % 1 * 1000);
-        $timeout(timer.pokeScope, delay);
+        $timeout(timer.monitor_changes, delay);
       }
     };
 
-    timer.getFormattedTime = function ( ) {
-      if (timer.isRunning) {
-        return timer.formatTime(timer.remaining());
-      } else {
-        return timer.formatTime(timer.duration);
-        timer.interval_promise = undefined;
+
+    timer.determine_state = function () {
+      if (! timer.isRunning) {
+        timer.current_state = 'stopped';
+        return;
       }
+
+      var remaining = timer.remaining();
+      var state = _.find(
+        timer.states,
+        function (state) { return remaining < state.cutoff; }
+      );
+
+      timer.current_state = state.name;
+    };
+
+
+
+    timer.getFormattedTime = function ( ) {
+      var to_format = timer.isRunning ? timer.remaining() : timer.duration;
+      return timer.formatTime(to_format);
     };
 
     timer.remaining = function () {
