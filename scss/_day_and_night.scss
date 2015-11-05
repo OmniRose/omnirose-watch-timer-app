@@ -1,4 +1,8 @@
 
+$timer-notify-background-color: red !default;
+$timer-alerting-background-color: black !default;
+$timer-alerting-color: red !default;
+
 @import "_timer.scss";
 
 // The path for our ionicons font files, relative to the built CSS in www/css

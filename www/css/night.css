@@ -8,6 +8,28 @@
   top: 50%;
   transform: translate(-50%, -50%); }
 
+@keyframes notifying {
+  from { }
+  to {
+    background-color: red; } }
+
+.timer-state-notifying {
+  animation-name: notifying;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate; }
+
+@keyframes alerting {
+  from { }
+  to {
+    background-color: black; } }
+
+.timer-state-alerting {
+  color: red;
+  animation-name: alerting;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

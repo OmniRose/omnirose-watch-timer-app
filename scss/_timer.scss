@@ -1,7 +1,8 @@
+
 #timer-current-time {
   font-weight: bold;
   text-align: center;
-  white-space: nowrap;;
+  white-space: nowrap;
 
   // Center content vertically and horizontally
   // see https://css-tricks.com/centering-percentage-widthheight-elements/
@@ -10,3 +11,41 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+.timer-state-stopped {
+}
+
+.timer-state-running {
+}
+
+
+@keyframes notifying {
+  from {}
+  to {background-color: $timer-notifying-background-color;}
+}
+
+.timer-state-notifying {
+  animation-name: notifying;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes alerting {
+  from {}
+  to {background-color: $timer-alerting-background-color;}
+}
+
+.timer-state-alerting {
+  color: $timer-alerting-color;
+
+  animation-name: alerting;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.timer-state-alarming {
+
+}
+
+

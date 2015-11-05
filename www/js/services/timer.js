@@ -18,7 +18,7 @@
 
     timer.end_time = undefined;
     timer.time_last_button_pressed = undefined; // TODO - wire this up
-    timer.duration = 125; // 15 * 60;
+    timer.duration = 15 * 60;
 
     // listed in ascending cutoff order so that the code in determine_state
     // will work correctly.

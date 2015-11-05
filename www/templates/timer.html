@@ -1,5 +1,5 @@
 <ion-pane>
-  <ion-content scroll="false">
+  <ion-content scroll="false" ng-class="'timer-state-' + timer.current_state">
     <div>
 
       <div
@@ -17,7 +17,6 @@
         </span>
       </div>
 
-      {{ timer.current_state }}
 
     </div>
   </ion-content>
