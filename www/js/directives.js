@@ -44,7 +44,7 @@ angular.module('WatchTimer')
 
         // 'resize' as the chrome dev toolkit does not trigger an
         // 'orientationchange' event when switching between oriantations.
-        $(window).on("resize", resize_to_fit);
+        $(window).on("resize orientationchange", resize_to_fit);
 
       }
     };
