@@ -5,6 +5,7 @@
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "jquery": "jQuery#~2.1.4"
+    "jquery": "jQuery#~2.1.4",
+    "underscore": "~1.8.3"
   }
 }
