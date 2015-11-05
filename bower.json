@@ -7,6 +7,7 @@
   "dependencies": {
     "jquery": "jQuery#~2.1.4",
     "underscore": "~1.8.3",
-    "ngCordova": "~0.1.20-alpha"
+    "ngCordova": "~0.1.20-alpha",
+    "howler.js": "howler#~1.1.28"
   }
 }
