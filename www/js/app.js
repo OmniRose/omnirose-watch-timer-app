@@ -19,8 +19,18 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   $stateProvider.state('timer', {
     url: '/',
     templateUrl: 'templates/timer.html',
-    controller: function($scope, timer) {
+    controller: function($scope, timer, sounds) {
       $scope.timer = timer;
+
+      $scope.playChime = function() {
+        sounds.chime.play();
+      };
+
+      $scope.playSiren = function() {
+        sounds.siren.play();
+      };
+
+
     }
   });
 
