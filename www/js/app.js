@@ -1,3 +1,7 @@
+window.ionic.Platform.ready(function() {
+  angular.bootstrap(document, ['WatchTimer']);
+});
+
 angular.module('WatchTimer', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
