@@ -22,7 +22,8 @@
       // the "-0.8" is there so that after starting or restarting the timer the
       // time changes quickly. This is to give the user a quick response that
       // something is happening.
-      timer.duration = 15 * 60 - 0.8;
+      timer.duration = 15 * 60;
+      timer.duration -= 0.8;
 
       // listed in ascending cutoff order so that the code in determine_state
       // will work correctly.

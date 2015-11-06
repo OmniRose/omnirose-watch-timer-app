@@ -1,7 +1,3 @@
-window.ionic.Platform.ready(function() {
-  angular.bootstrap(document, ['WatchTimer']);
-});
-
 angular.module('WatchTimer', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
@@ -26,9 +22,23 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     controller: function($scope, timer, sounds) {
       $scope.timer = timer;
 
-      $scope.playSound = function(id) {
-        sounds.play(id);
-      }
+      timer.duration = 2;
+      // timer.start(); // FIXME
+
+      // Watch the current state and start looping the bong if alerting
+      $scope.$watch(
+        "timer.current_state",
+        function(newState, oldState) {
+          console.log("State change: " + oldState + " -> " + newState);
+
+          // On all state changes we can stop the previous sounds
+          sounds.stopAll();
+
+          if (newState === 'alerting') {
+            sounds.loop('alert');
+          }
+        }
+      );
 
     }
   });
