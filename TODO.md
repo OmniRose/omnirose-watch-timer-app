@@ -2,6 +2,8 @@
 
 ## Alpha
 
+* work out why console.log messages not being shown from sim or phone
+
 * Style the screen nicely
 * Pulse when timer is close to running out
 * Beep when timer has run out
