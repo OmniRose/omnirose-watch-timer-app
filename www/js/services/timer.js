@@ -13,11 +13,11 @@ angular.module('WatchTimer')
     self.duration = 15 * 60;
     self.duration -= 0.8;
 
-    // listed in ascending cutoff order so that the code in determine_state
+    // listed in ascending cutoff order so that the code in _get_current_state
     // will work correctly.
     self.states = [{
       name: "alarming",
-      cutoff: -1 // FIXME -3 * 60
+      cutoff: -3 // FIXME -3 * 60
     }, {
       name: "alerting",
       cutoff: 0
@@ -65,10 +65,9 @@ angular.module('WatchTimer')
       self.update();
     }
 
-    self.determine_state = function() {
+    self._get_current_state = function() {
       if (!self.isRunning) {
-        self.current_state = 'stopped';
-        return;
+        return 'stopped';
       }
 
       var remaining = self.remaining();
@@ -79,7 +78,7 @@ angular.module('WatchTimer')
         }
       );
 
-      self.current_state = state.name;
+      return state.name;
     };
 
 
@@ -92,11 +91,8 @@ angular.module('WatchTimer')
     // -----------------------
 
     self.update = function() {
-
-      self.determine_state();
-
+      self.current_state = self._get_current_state();
       self.time_to_display = self.isRunning ? self.remaining() : self.duration;
-
     };
 
     self.start_updating = function() {
