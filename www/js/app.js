@@ -26,14 +26,9 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     controller: function($scope, timer, sounds) {
       $scope.timer = timer;
 
-      $scope.playChime = function() {
-        sounds.chime.play();
-      };
-
-      $scope.playSiren = function() {
-        sounds.siren.play();
-      };
-
+      $scope.playSound = function(id) {
+        sounds.play(id);
+      }
 
     }
   });
