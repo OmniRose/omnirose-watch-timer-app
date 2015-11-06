@@ -1,24 +1,22 @@
 <ion-pane>
-  <ion-content scroll="false" ng-class="'timer-state-' + timer.current_state">
-    <div>
+  <ion-content
+    scroll="false"
+    ng-class="'timer-state-' + timer.current_state"
+    on-tap="timer.start()"
+    on-hold="timer.stop()"
+    on-swipe-up="timer.increment()"
+    on-swipe-down="timer.decrement()"
+  >
 
-      <div
-        id="timer-current-time"
-        on-tap="timer.start()"
-        on-hold="timer.stop()"
-        on-swipe-up="timer.increment()"
-        on-swipe-down="timer.decrement()"
+    <div id="timer-current-time">
+      <span
+        resize-text-to-fill
+        ng-cloak
       >
-        <span
-          resize-text-to-fill
-          ng-cloak
-        >
-          {{ timer.getFormattedTime() }}
-        </span>
-      </div>
-
-
+        {{ timer.getFormattedTime() }}
+      </span>
     </div>
+
   </ion-content>
 
   <ion-footer-bar>
