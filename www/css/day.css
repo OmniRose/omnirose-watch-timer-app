@@ -9,26 +9,38 @@
   transform: translate(-50%, -50%); }
 
 @keyframes notifying {
-  from { }
-  to {
-    background-color: red; } }
+  0% { }
+  100% {
+    background-color: #f00; } }
 
 .timer-state-notifying {
+  background-color: #faa;
+  text-shadow: 0 0 40px white;
   animation-name: notifying;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate; }
 
 @keyframes alerting {
-  from { }
-  to {
-    background-color: black; } }
+  0% {
+    background-color: white; }
+  20% {
+    background-color: white; }
+  30% {
+    background-color: black; }
+  70% {
+    background-color: black; }
+  80% {
+    background-color: white; }
+  100% {
+    background-color: white; } }
 
 .timer-state-alerting {
   color: red;
   animation-name: alerting;
-  animation-duration: 0.5s;
-  animation-iteration-count: infinite; }
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; }
 
 /*!
   Ionicons, v2.0.1

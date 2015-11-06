@@ -1,6 +1,7 @@
 
-$timer-notifying-background-color: red !default;
-$timer-alerting-background-color: black !default;
+$timer-notifying-pulse-color: #f00 !default;
+$timer-notifying-background-color: #faa !default;
+$timer-alerting-pulse-color: black !default;
 $timer-alerting-color: red !default;
 
 @import "_timer.scss";

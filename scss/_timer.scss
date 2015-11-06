@@ -20,28 +20,36 @@
 
 
 @keyframes notifying {
-  from {}
-  to {background-color: $timer-notifying-background-color;}
+  0%   {}
+  100% { background-color: $timer-notifying-pulse-color; }
 }
 
 .timer-state-notifying {
+  background-color: $timer-notifying-background-color;
+  text-shadow: 0 0 40px white;
+
   animation-name: notifying;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
 @keyframes alerting {
-  from {}
-  to {background-color: $timer-alerting-background-color;}
+  0%   { background-color: white;}
+  20%  { background-color: white;}
+  30%  { background-color: $timer-alerting-pulse-color; }
+  70%  { background-color: $timer-alerting-pulse-color; }
+  80%  { background-color: white; }
+  100% { background-color: white;}
 }
 
 .timer-state-alerting {
   color: $timer-alerting-color;
 
   animation-name: alerting;
-  animation-duration: 0.5s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .timer-state-alarming {
