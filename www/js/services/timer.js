@@ -1,13 +1,5 @@
 (function() {
 
-  function format_number(number) {
-    number = Math.floor(number);
-    string = number + "";
-    if (string.length < 2) {
-      string = "0" + string;
-    }
-    return string;
-  };
 
   angular.module('WatchTimer')
     .factory('timer', function($rootScope, $interval, $timeout) {
@@ -134,9 +126,8 @@
 
 
 
-      timer.getFormattedTime = function() {
-        var to_format = timer.isRunning ? timer.remaining() : timer.duration;
-        return timer.formatTime(to_format);
+      timer.time_to_display = function() {
+        return timer.isRunning ? timer.remaining() : timer.duration;
       };
 
       timer.remaining = function() {
@@ -144,18 +135,11 @@
         return (timer.end_time - now) / 1000;
       };
 
-      timer.formatTime = function(seconds) {
-        var seconds = Math.abs(Math.ceil(seconds));
-        var mm = format_number(seconds / 60);
-        var ss = format_number(seconds % 60);
-
-        return mm + ":" + ss;
-      };
 
       timer.duration_since_last_button_pressed = function() {
         var now = new Date();
         var elapsed = (now - timer.time_last_button_pressed) / 1000;
-        return timer.formatTime(elapsed);
+        return elapsed;
       };
 
       return timer;

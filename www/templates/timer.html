@@ -13,7 +13,7 @@
         resize-text-to-fill
         ng-cloak
       >
-        {{ timer.getFormattedTime() }}
+        {{ timer.time_to_display() | hhmmss }}
       </span>
     </div>
 
