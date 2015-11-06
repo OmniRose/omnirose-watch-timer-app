@@ -4,7 +4,9 @@ $timer-notifying-background-color: #faa !default;
 $timer-alerting-pulse-color: black !default;
 $timer-alerting-color: red !default;
 
+@import "_mixins.scss";
 @import "_timer.scss";
+@import "_alarm.scss";
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;

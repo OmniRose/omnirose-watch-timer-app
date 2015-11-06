@@ -42,6 +42,17 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear; }
 
+#alarm-notice {
+  text-align: center; }
+
+#duration_since_last_button_pressed {
+  font-size: 4em;
+  line-height: initial; }
+
+.last_checkin-coord {
+  font-size: 2em;
+  line-height: initial; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

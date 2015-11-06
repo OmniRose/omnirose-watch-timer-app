@@ -17,7 +17,7 @@
       timer.current_state = 'stopped';
 
       timer.end_time = undefined;
-      timer.time_last_button_pressed = undefined; // TODO - wire this up
+      timer.time_last_button_pressed = Date.now(); // TODO - wire this up
 
       // the "-0.8" is there so that after starting or restarting the timer the
       // time changes quickly. This is to give the user a quick response that
@@ -29,7 +29,7 @@
       // will work correctly.
       timer.states = [{
         name: "alarming",
-        cutoff: -3 * 60
+        cutoff: -5 // FIXME -3 * 60
       }, {
         name: "alerting",
         cutoff: 0
@@ -141,7 +141,7 @@
 
       timer.remaining = function() {
         var now = new Date();
-        return elapsed = (timer.end_time - now) / 1000;
+        return (timer.end_time - now) / 1000;
       };
 
       timer.formatTime = function(seconds) {
@@ -150,6 +150,12 @@
         var ss = format_number(seconds % 60);
 
         return mm + ":" + ss;
+      };
+
+      timer.duration_since_last_button_pressed = function() {
+        var now = new Date();
+        var elapsed = (now - timer.time_last_button_pressed) / 1000;
+        return timer.formatTime(elapsed);
       };
 
       return timer;

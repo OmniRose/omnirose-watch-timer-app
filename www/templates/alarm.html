@@ -1,0 +1,56 @@
+<ion-pane>
+
+  <ion-header-bar class="bar-assertive">
+    <button ui-sref="timer" class="button button-icon icon ion-close"></button>
+    <h1 class="title">CHECK-IN OVERDUE!</h1>
+  </ion-header-bar>
+
+  <ion-content id="alarm-notice">
+
+    <div ng-hide="alarmSilenced" class="row responsive-sm">
+      <div class="col">
+        <button
+          ng-click="silence($event)"
+          class="button button-large button-assertive icon-left ion-volume-mute"
+        >Silence Alarm</button>
+      </div>
+    </div>
+
+    <div class="row responsive-sm">
+      <div class="col">
+        <div class="card">
+          <div class="item item-divider">
+            Check-in overdue by:
+          </div>
+          <div class="item item-text-wrap">
+            <div>
+              <span id="duration_since_last_button_pressed">{{ timer.duration_since_last_button_pressed() }}</span>
+              <br>
+            Last check-in time:  {{ timer.time_last_button_pressed | date : 'HH:mm'}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="item item-divider">
+            Last check-in location:
+          </div>
+          <div class="item item-text-wrap">
+            <div class="last_checkin-coord">
+              12° 34.567" N
+            </div>
+            <div class="last_checkin-coord">
+              34° 56.789" W
+            </div>
+            Some additional useful text.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-pane>

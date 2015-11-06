@@ -14,12 +14,12 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/timer');
 
   $stateProvider.state('timer', {
-    url: '/',
+    url: '/timer',
     templateUrl: 'templates/timer.html',
-    controller: function($scope, timer, sounds) {
+    controller: function($scope, timer, sounds, $state) {
       $scope.timer = timer;
 
       timer.duration = 2;
@@ -37,8 +37,37 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
           if (newState === 'alerting') {
             sounds.loop('alert');
           }
+
+          if (newState === 'alarming') {
+            $state.go('alarm');
+          }
         }
       );
+
+    }
+  });
+
+  $stateProvider.state('alarm', {
+    url: '/alarm',
+    templateUrl: 'templates/alarm.html',
+    onEnter: function(timer) {
+      console.log("alarm onEnter");
+      timer.stop();
+    },
+    controller: function($scope, timer, sounds) {
+      var alarm = this;
+
+      $scope.timer = timer;
+
+      // Trigger the alarm sound
+      console.log("FIXME - re-enable alarm sound here");
+      // sounds.loop('alarm');
+
+      $scope.silence = function(clickEvent) {
+        console.log(clickEvent);
+        sounds.stopAll();
+        $scope.alarmSilenced = true;
+      }
 
     }
   });
