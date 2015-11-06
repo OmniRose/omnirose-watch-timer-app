@@ -39,14 +39,12 @@ angular.module('WatchTimer')
 
       self.isRunning = true;
 
-      // use $timeout so that this runs after we're finished so it does not
-      // conflict with our dispatch run
-      $timeout(self.monitor_changes);
+      self.update();
     };
 
     self.stop = function() {
       self.isRunning = false;
-      $timeout(self.monitor_changes);
+      self.update();
     };
 
     self.change = function(amount) {
@@ -64,24 +62,8 @@ angular.module('WatchTimer')
           self.duration = new_duration;
         }
       }
+      self.update();
     }
-
-
-    self.monitor_changes = function() {
-
-      self.determine_state();
-
-      // Tell the scope to check for changes
-      $rootScope.$apply();
-
-      // If the timer is running then need to update later
-      if (self.isRunning) {
-        // how long until the next update
-        var delay = Math.ceil(self.remaining() % 1 * 1000);
-        $timeout(self.monitor_changes, delay);
-      }
-    };
-
 
     self.determine_state = function() {
       if (!self.isRunning) {
@@ -102,14 +84,42 @@ angular.module('WatchTimer')
 
 
 
-    self.time_to_display = function() {
-      return self.isRunning ? self.remaining() : self.duration;
-    };
-
     self.remaining = function() {
       var now = new Date();
       return (self.end_time - now) / 1000;
     };
+
+    // -----------------------
+
+    self.update = function() {
+
+      self.determine_state();
+
+      self.time_to_display = self.isRunning ? self.remaining() : self.duration;
+
+    };
+
+    self.start_updating = function() {
+      self.update();
+
+      // Try to start on the change in time
+      var initial_delay = Math.ceil(self.remaining() % 1 * 1000);
+
+      $timeout(function() {
+        self.update();
+        self._update_id = $interval(function() {
+          self.update();
+        }, 1000);
+      }, initial_delay);
+
+    };
+
+    self.stop_updating = function() {
+      $interval.cancel(self._update_id);
+    };
+
+    // --------------------------
+
 
     return self;
 

@@ -19,6 +19,14 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   $stateProvider.state('timer', {
     url: '/timer',
     templateUrl: 'templates/timer.html',
+    onEnter: function(timer) {
+      console.log("timer onEnter");
+      timer.start_updating();
+    },
+    onExit: function(timer) {
+      console.log("timer onExit");
+      timer.stop_updating();
+    },
     controller: function($scope, timer, checkins, sounds, $state) {
       $scope.timer = timer;
 
@@ -49,7 +57,7 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
 
 
 
-      timer.duration = 2;
+      timer.duration = 1.2;
       // timer.start(); // FIXME
 
       // Watch the current state and start looping the bong if alerting
