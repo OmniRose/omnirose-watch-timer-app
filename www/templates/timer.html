@@ -2,10 +2,10 @@
   <ion-content
     scroll="false"
     ng-class="'timer-state-' + timer.current_state"
-    on-tap="timer.start()"
-    on-hold="timer.stop()"
-    on-swipe-up="timer.increment()"
-    on-swipe-down="timer.decrement()"
+    on-tap="start_timer()"
+    on-hold="stop_timer()"
+    on-swipe-up="increment_timer()"
+    on-swipe-down="decrement_timer()"
   >
 
     <div id="timer-current-time">
@@ -20,10 +20,10 @@
   </ion-content>
 
   <ion-footer-bar>
-    <button ng-click="timer.increment()" class="button button-icon icon ion-plus"></button>
-    <button ng-click="timer.decrement()" class="button button-icon  icon ion-minus"></button>
+    <button ng-click="increment_timer()" class="button button-icon icon ion-plus"></button>
+    <button ng-click="decrement_timer()" class="button button-icon  icon ion-minus"></button>
     <div class="title">
-      <button ng-click="timer.toggle()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
+      <button ng-click="toggle_timer()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
     </div>
     <button ui-sref="settings" class="button button-icon icon ion-gear-b"></button>
   </ion-footer-bar>

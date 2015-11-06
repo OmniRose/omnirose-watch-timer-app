@@ -24,9 +24,9 @@
           </div>
           <div class="item item-text-wrap">
             <div>
-              <span id="duration_since_last_button_pressed">{{ timer.duration_since_last_button_pressed() | hhmmss }}</span>
+              <span id="duration_since_last_button_pressed">{{ checkins.seconds_since_last_checkin | hhmmss }}</span>
               <br>
-            Last check-in time:  {{ timer.time_last_button_pressed | date : 'HH:mm'}}
+            Last check-in time:  {{ checkins.time_of_last_checkin | date : 'HH:mm'}}
             </div>
           </div>
         </div>

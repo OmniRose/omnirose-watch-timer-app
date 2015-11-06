@@ -9,7 +9,6 @@
       timer.current_state = 'stopped';
 
       timer.end_time = undefined;
-      timer.time_last_button_pressed = Date.now(); // TODO - wire this up
 
       // the "-0.8" is there so that after starting or restarting the timer the
       // time changes quickly. This is to give the user a quick response that
@@ -21,7 +20,7 @@
       // will work correctly.
       timer.states = [{
         name: "alarming",
-        cutoff: -5 // FIXME -3 * 60
+        cutoff: -1 // FIXME -3 * 60
       }, {
         name: "alerting",
         cutoff: 0
@@ -36,13 +35,7 @@
         cutoff: undefined
       }, ];
 
-      timer.record_button_press = function() {
-        timer.time_last_button_pressed = new Date();
-      }
-
       timer.start = function() {
-        timer.record_button_press();
-
         var end_time = new Date();
         end_time.setTime(end_time.getTime() + timer.duration * 1000);
         timer.end_time = end_time;
@@ -55,20 +48,9 @@
       };
 
       timer.stop = function() {
-        timer.record_button_press();
         timer.isRunning = false;
         $timeout(timer.monitor_changes);
       };
-
-      timer.increment = function() {
-        timer.record_button_press();
-        timer.change(60);
-      }
-
-      timer.decrement = function() {
-        timer.record_button_press();
-        timer.change(-60);
-      }
 
       timer.change = function(amount) {
         if (timer.isRunning) {
@@ -87,9 +69,6 @@
         }
       }
 
-      timer.toggle = function() {
-        timer.isRunning ? timer.stop() : timer.start();
-      };
 
       timer.monitor_changes = function() {
 
@@ -133,13 +112,6 @@
       timer.remaining = function() {
         var now = new Date();
         return (timer.end_time - now) / 1000;
-      };
-
-
-      timer.duration_since_last_button_pressed = function() {
-        var now = new Date();
-        var elapsed = (now - timer.time_last_button_pressed) / 1000;
-        return elapsed;
       };
 
       return timer;

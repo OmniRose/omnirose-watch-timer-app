@@ -19,8 +19,35 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   $stateProvider.state('timer', {
     url: '/timer',
     templateUrl: 'templates/timer.html',
-    controller: function($scope, timer, sounds, $state) {
+    controller: function($scope, timer, checkins, sounds, $state) {
       $scope.timer = timer;
+
+
+      $scope.toggle_timer = function() {
+        timer.isRunning ? $scope.stop_timer() : $scope.start_timer();
+      };
+
+      $scope.stop_timer = function() {
+        checkins.add('stop');
+        timer.stop();
+      };
+
+      $scope.start_timer = function() {
+        checkins.add('start');
+        timer.start();
+      };
+
+      $scope.increment_timer = function() {
+        checkins.add('increment');
+        timer.change(60);
+      };
+
+      $scope.decrement_timer = function() {
+        checkins.add('decrement');
+        timer.change(-60);
+      };
+
+
 
       timer.duration = 2;
       // timer.start(); // FIXME
@@ -50,21 +77,28 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
   $stateProvider.state('alarm', {
     url: '/alarm',
     templateUrl: 'templates/alarm.html',
-    onEnter: function(timer) {
+    onEnter: function(timer, checkins) {
       console.log("alarm onEnter");
       timer.stop();
+      checkins.start_updating();
     },
-    controller: function($scope, timer, sounds) {
+    onExit: function(checkins) {
+      console.log("alarm onExit");
+      checkins.stop_updating();
+    },
+    controller: function($scope, timer, sounds, checkins) {
       var alarm = this;
 
       $scope.timer = timer;
+      $scope.checkins = checkins;
+
+      $scope.seconds_since_last_checkin = checkins.seconds_since_last_checkin;
 
       // Trigger the alarm sound
       console.log("FIXME - re-enable alarm sound here");
       // sounds.loop('alarm');
 
       $scope.silence = function(clickEvent) {
-        console.log(clickEvent);
         sounds.stopAll();
         $scope.alarmSilenced = true;
       }
