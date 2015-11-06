@@ -18,7 +18,11 @@
 
       timer.end_time = undefined;
       timer.time_last_button_pressed = undefined; // TODO - wire this up
-      timer.duration = 15 * 60;
+
+      // the "-0.8" is there so that after starting or restarting the timer the
+      // time changes quickly. This is to give the user a quick response that
+      // something is happening.
+      timer.duration = 15 * 60 - 0.8;
 
       // listed in ascending cutoff order so that the code in determine_state
       // will work correctly.
