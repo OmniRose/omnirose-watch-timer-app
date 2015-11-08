@@ -25,6 +25,7 @@
         "gulp-util": "^2.2.14",
         "shelljs": "^0.3.0"
     },
-    "name": "OmniRose watch timer",
+    "name": "omnirose-watch-timer-app",
+    "private": true,
     "version": "0.0.1"
 }
