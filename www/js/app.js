@@ -21,6 +21,7 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     templateUrl: 'templates/timer.html',
     onEnter: function(timer) {
       console.log("timer onEnter");
+      timer.stop();
       timer.start_updating();
     },
     onExit: function(timer) {
@@ -55,8 +56,6 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
         timer.change(-60);
       };
 
-
-
       timer.duration = 1.2;
       // timer.start(); // FIXME
 
@@ -87,18 +86,17 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     templateUrl: 'templates/alarm.html',
     onEnter: function(timer, checkins) {
       console.log("alarm onEnter");
-      timer.stop();
       checkins.start_updating();
     },
     onExit: function(checkins) {
       console.log("alarm onExit");
       checkins.stop_updating();
     },
-    controller: function($scope, timer, sounds, checkins) {
+    controller: function($scope, sounds, checkins) {
       var alarm = this;
 
-      $scope.timer = timer;
       $scope.checkins = checkins;
+      $scope.alarmSilenced = false;
 
       $scope.seconds_since_last_checkin = checkins.seconds_since_last_checkin;
 
