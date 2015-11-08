@@ -1,5 +1,5 @@
 angular.module('WatchTimer')
-  .directive('resizeTextToFill', function($document, $timeout) {
+  .directive('resizeTextToFill', function($window, $timeout) {
     return {
       link: function(scope, element, attrs, controller, transcludeFn) {
 
@@ -17,8 +17,8 @@ angular.module('WatchTimer')
 
         function resize_to_fit() {
           var font_size = initial_font_size;
-          var max_height = $document.height() - font_size_increment;
-          var max_width = $document.width() - font_size_increment;
+          var max_height = $($window).height() - font_size_increment;
+          var max_width = $($window).width() - font_size_increment;
           var safety_counter = 0;
 
           set_size(font_size);
@@ -42,7 +42,7 @@ angular.module('WatchTimer')
 
         // 'resize' as the chrome dev toolkit does not trigger an
         // 'orientationchange' event when switching between oriantations.
-        $(window).on("resize orientationchange", resize_to_fit);
+        $($window).on("resize orientationchange", resize_to_fit);
 
       }
     };
