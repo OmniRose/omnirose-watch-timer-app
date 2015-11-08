@@ -8,6 +8,9 @@
   top: 50%;
   transform: translate(-50%, -50%); }
 
+.timer-state-stopped {
+  color: #888; }
+
 @keyframes notifying {
   0% { }
   100% {
