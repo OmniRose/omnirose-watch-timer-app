@@ -14,7 +14,7 @@ angular.module('WatchTimer')
       var duration = Math.abs(Math.ceil(duration));
 
       var hours = Math.floor(duration / 3600);
-      var minutes = Math.floor(duration / 60);
+      var minutes = Math.floor(duration / 60 % 60);
       var seconds = Math.floor(duration % 60);
 
       var hhmmss = "";
