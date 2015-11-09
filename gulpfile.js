@@ -7,12 +7,16 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var angularProtractor = require('gulp-angular-protractor');
+var karmaServer = require('karma').Server;
+
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
 gulp.task('default', ['sass']);
+
+gulp.task('test', ['unit-test', 'protractor']);
 
 gulp.task('sass', function(done) {
   gulp.src(['./scss/day.scss', './scss/night.scss'])
@@ -68,3 +72,10 @@ gulp.task('protractor', function(callback) {
     .on('end', callback);
 });
 
+
+gulp.task('unit-test', function(done) {
+  new karmaServer({
+    configFile: __dirname + '/tests/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
