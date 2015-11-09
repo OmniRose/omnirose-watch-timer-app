@@ -2,6 +2,7 @@
     "dependencies": {
         "jquery": "jQuery#~2.1.4",
         "ngCordova": "~0.1.20-alpha",
+        "sinon-1.17.2": "http://sinonjs.org/releases/sinon-1.17.2.js",
         "underscore": "~1.8.3"
     },
     "devDependencies": {
