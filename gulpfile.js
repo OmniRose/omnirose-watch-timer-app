@@ -62,7 +62,6 @@ gulp.task('protractor', function(callback) {
     .src(['tests/end-to-end/**/*.js'])
     .pipe(angularProtractor({
       'configFile': 'tests/protractor.conf.js',
-      'args': ['--baseUrl', 'http://127.0.0.1:8100'],
       'debug': false,
       'autoStartStopServer': true
     }))
