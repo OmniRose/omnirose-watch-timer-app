@@ -46,7 +46,7 @@ angular.module('WatchTimer')
       }
 
       if (newState === 'alarming') {
-        $state.go('alarm');
+        $state.go('top.alarm');
       }
 
     });

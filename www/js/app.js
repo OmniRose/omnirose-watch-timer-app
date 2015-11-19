@@ -14,9 +14,17 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/timer');
+  $urlRouterProvider.otherwise('/top/timer');
 
-  $stateProvider.state('timer', {
+  // top view so that we know that we'll always enter and exit the lower states,
+  // none of them will be assumed to be the top state.
+  $stateProvider.state('top', {
+    abstract: true,
+    url: '/top',
+    template: '<ui-view />',
+  });
+
+  $stateProvider.state('top.timer', {
     url: '/timer',
     templateUrl: 'templates/timer.html',
     onEnter: function(timer) {
@@ -31,7 +39,7 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     controller: "TimerCtrl"
   });
 
-  $stateProvider.state('alarm', {
+  $stateProvider.state('top.alarm', {
     url: '/alarm',
     templateUrl: 'templates/alarm.html',
     onEnter: function(timer, checkins) {
@@ -45,7 +53,7 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     controller: "AlarmCtrl"
   });
 
-  $stateProvider.state('settings', {
+  $stateProvider.state('top.settings', {
     url: '/settings',
     templateUrl: 'templates/settings.html'
   });

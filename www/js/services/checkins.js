@@ -10,7 +10,7 @@ angular.module('WatchTimer')
         when: new Date()
       });
 
-      // Only keep the most recent 20 _entries
+      // Only keep the most recent 20 entries
       while (self._entries.length > 20) {
         self._entries.pop();
       }
