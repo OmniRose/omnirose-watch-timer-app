@@ -2,13 +2,8 @@
 
 ## Alpha
 
-* work out why console.log messages not being shown from sim or phone
-
 * Style the screen nicely
-* Pulse when timer is close to running out
-* Beep when timer has run out
-* Alarm after timer has been run out for a while
-
+* Add settings
 
 ## Beta
 
@@ -16,6 +11,10 @@
 * Store the duration between sessions
 * Let user change settings in config
 * Day and Night modes
+
+## Trickier
+
+* Trigger alerts and alarms even when app is in background.
 
 ## Nice to have
 
