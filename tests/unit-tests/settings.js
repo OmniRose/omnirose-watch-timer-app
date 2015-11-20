@@ -75,29 +75,57 @@ describe('settings', function() {
   });
 
   describe('free settings', function() {
+
+    beforeEach(function() {
+      jasmine.clock().install();
+      jasmine.clock().mockDate();
+    });
+
+    afterEach(function() {
+      jasmine.clock().uninstall();
+    });
+
     it('defaults', function() {
+
+      var freeTrialPeriod = 48 * 3600 * 1000;
+
       expect(settings.get('freeTestKey')).toBe('foo');
-      expect(settings.get('paidTestKey')).toBe(undefined);
-      expect(settings.mayStartFreeTrial()).toBe(true);
-      expect(settings.freeTrialEnds()).toBe(undefined);
+      expect(settings.get('paidTestKey')).toBeUndefined();
+      expect(settings.mayStartFreeTrial()).toBeTruthy();
+      expect(settings.mayUsePaid()).toBeFalsy();
+      expect(settings.freeTrialEnds()).toBeUndefined();
 
       settings.startTrialPeriod();
 
       expect(settings.get('freeTestKey')).toBe('foo');
       expect(settings.get('paidTestKey')).toBe('foo');
-      expect(settings.mayStartFreeTrial()).toBe(false);
-      expect(settings.freeTrialEnds()).not.toBe(undefined);
+      expect(settings.mayStartFreeTrial()).toBeFalsy();
+      expect(settings.mayUsePaid()).toBeTruthy();
+      expect(settings.freeTrialEnds()).not.toBeUndefined();
 
-      // expect(settings.freeTrialEnds().getTime()).toBe((new Date()).getTime() + 48 * 3600 * 1000); FIXME - bad test
+      expect(settings.freeTrialEnds() - new Date()).toBe(freeTrialPeriod);
 
       expect(function() {
         settings.startTrialPeriod();
       }).toThrow('can\'t start free trial, has already been started');
+
+      // advance the clock beyond the end of the free trial period
+      jasmine.clock().tick(freeTrialPeriod + 1000);
+
+      expect(settings.get('freeTestKey')).toBe('foo');
+      expect(settings.get('paidTestKey')).toBeUndefined();
+      expect(settings.mayStartFreeTrial()).toBeFalsy();
+      expect(settings.mayUsePaid()).toBeFalsy();
+
+      expect(function() {
+        settings.startTrialPeriod();
+      }).toThrow('can\'t start free trial, has already been started');
+
     });
   });
 
   // describe('Enable advanced', function() {
-  //   expect(settings.allowAdvanced()).toBe(false);
+  //   expect(settings.allowAdvanced()).toBeFalsy();
   // });
 
 });

@@ -31,9 +31,9 @@ describe("Alarm silence button", function() {
 
     // on alarm page. Silence the alarm and leave
     expect(browser.getCurrentUrl()).toMatch('/#/top/alarm$');
-    expect(element(by.buttonText("Silence Alarm")).isDisplayed()).toBe(true);
+    expect(element(by.buttonText("Silence Alarm")).isDisplayed()).toBeTruthy();;
     element(by.buttonText("Silence Alarm")).click();
-    expect(element(by.buttonText("Silence Alarm")).isDisplayed()).toBe(false);
+    expect(element(by.buttonText("Silence Alarm")).isDisplayed()).toBeFalsy();
     element(by.className("ion-close")).click();
 
     // back on timer page.
@@ -46,7 +46,7 @@ describe("Alarm silence button", function() {
 
     // on alarm page. check that the silence alarm button is visible
     expect(browser.getCurrentUrl()).toMatch('/#/top/alarm$');
-    expect(element(by.buttonText("Silence Alarm")).isDisplayed()).toBe(true);
+    expect(element(by.buttonText("Silence Alarm")).isDisplayed()).toBeTruthy();;
   }
 
   it('should stay silenced from timer page', function() {
