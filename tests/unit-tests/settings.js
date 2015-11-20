@@ -10,6 +10,11 @@ describe('settings', function() {
     })
   );
 
+  // make sure that there are no lingering settings in the browser local storage
+  beforeEach(function() {
+    settings._resetEverything();
+  });
+
   describe('set and get settings', function() {
 
     it('should set and get correctly', function() {
@@ -26,11 +31,13 @@ describe('settings', function() {
     });
 
     it('should error on settings that are not expected', function() {
-      var setFoo = function() {
+      expect(function() {
         settings.set('unknownTestKey', 'bar');
-      };
+      }).toThrow('unknown setting \'unknownTestKey\'');
 
-      expect(setFoo).toThrow('unknown setting \'unknownTestKey\'');
+      expect(function() {
+        settings.set('unknownTestKey', 'bar');
+      }).toThrow('unknown setting \'unknownTestKey\'');
     });
 
   });
@@ -67,13 +74,28 @@ describe('settings', function() {
     });
   });
 
-  // describe('free settings', function() {
-  //   it('defaults', function() {
-  //     expect(settings.freeTestKey).toBe('foo');
-  //     expect(settings.auto_switch).toBe(false);
-  //   });
-  // });
-  //
+  describe('free settings', function() {
+    it('defaults', function() {
+      expect(settings.get('freeTestKey')).toBe('foo');
+      expect(settings.get('paidTestKey')).toBe(undefined);
+      expect(settings.mayStartFreeTrial()).toBe(true);
+      expect(settings.freeTrialEnds()).toBe(undefined);
+
+      settings.startTrialPeriod();
+
+      expect(settings.get('freeTestKey')).toBe('foo');
+      expect(settings.get('paidTestKey')).toBe('foo');
+      expect(settings.mayStartFreeTrial()).toBe(false);
+      expect(settings.freeTrialEnds()).not.toBe(undefined);
+
+      // expect(settings.freeTrialEnds().getTime()).toBe((new Date()).getTime() + 48 * 3600 * 1000); FIXME - bad test
+
+      expect(function() {
+        settings.startTrialPeriod();
+      }).toThrow('can\'t start free trial, has already been started');
+    });
+  });
+
   // describe('Enable advanced', function() {
   //   expect(settings.allowAdvanced()).toBe(false);
   // });
