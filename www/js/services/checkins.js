@@ -7,7 +7,7 @@ angular.module('WatchTimer')
     self.add = function(action) {
       self._entries.unshift({
         action: action,
-        when: new Date()
+        when: new Date(),
       });
 
       // Only keep the most recent 20 entries
@@ -18,26 +18,26 @@ angular.module('WatchTimer')
       self.update();
     };
 
-    self.most_recent = function() {
+    self.mostRecent = function() {
       return self._entries[0];
-    }
+    };
 
     self.update = function() {
       var now = new Date();
-      var most_recent_when = self.most_recent().when;
-      self.seconds_since_last_checkin = (now - most_recent_when) / 1000;
-      self.time_of_last_checkin = most_recent_when;
+      var mostRecentWhen = self.mostRecent().when;
+      self.secondsSincelastcheckin = (now - mostRecentWhen) / 1000;
+      self.timeOfLastCheckin = mostRecentWhen;
     };
 
-    self.start_updating = function() {
+    self.startUpdating = function() {
       self.update();
-      self._update_id = $interval(function() {
+      self._updateId = $interval(function() {
         self.update();
       }, 1000);
     };
 
-    self.stop_updating = function() {
-      $interval.cancel(self._update_id);
+    self.stopUpdating = function() {
+      $interval.cancel(self._updateId);
     };
 
     // Add an entry now

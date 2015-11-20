@@ -10,7 +10,6 @@ describe('settings', function() {
     })
   );
 
-
   describe('set and get settings', function() {
 
     it('should set and get correctly', function() {
@@ -22,15 +21,16 @@ describe('settings', function() {
     it('should reset all settings', function() {
       settings.set('freeTestKey', 'bar');
       expect(settings.get('freeTestKey')).toBe('bar');
-      settings.reset_all();
+      settings.resetAll();
       expect(settings.get('freeTestKey')).toBe('foo');
     });
 
     it('should error on settings that are not expected', function() {
-      var set_foo = function() {
+      var setFoo = function() {
         settings.set('unknownTestKey', 'bar');
       };
-      expect(set_foo).toThrow("unknown setting 'unknownTestKey'");
+
+      expect(setFoo).toThrow('unknown setting \'unknownTestKey\'');
     });
 
   });
@@ -43,7 +43,7 @@ describe('settings', function() {
       settings.save();
 
       // reset current settings
-      settings.reset_all();
+      settings.resetAll();
       expect(settings.get('freeTestKey')).toBe('foo');
 
       // load settings from store and expect to be as they were
@@ -51,13 +51,13 @@ describe('settings', function() {
       expect(settings.get('freeTestKey')).toBe('bar');
     });
 
-    it('should clear_storage', function() {
+    it('should clearStorage', function() {
       // change default setting and save
       settings.set('freeTestKey', 'bar');
       settings.save();
 
       // reset current settings
-      settings.clear_storage();
+      settings.clearStorage();
       expect(settings.get('freeTestKey')).toBe('bar');
 
       // load settings from store and expect to be as they were
@@ -66,8 +66,6 @@ describe('settings', function() {
       expect(settings.get('freeTestKey')).toBe('baz');
     });
   });
-
-
 
   // describe('free settings', function() {
   //   it('defaults', function() {

@@ -6,16 +6,17 @@ angular.module('WatchTimer')
 
     var config = {
       freeTestKey: {
-        default: 'foo'
+        default: 'foo',
       },
     };
 
-    var known_settings = _.keys(config);
+    var knownSettings = _.keys(config);
 
     self.set = function(key, val) {
-      if (!_.contains(known_settings, key)) {
-        throw "unknown setting '" + key + "'";
+      if (!_.contains(knownSettings, key)) {
+        throw 'unknown setting \'' + key + '\'';
       }
+
       self[key] = val;
     };
 
@@ -23,30 +24,30 @@ angular.module('WatchTimer')
       return self[key];
     };
 
-    self.reset_all = function() {
-      _.each(known_settings, function(key) {
+    self.resetAll = function() {
+      _.each(knownSettings, function(key) {
         self[key] = config[key]['default'];
       });
     };
 
     self.save = function() {
-      var to_save = _.pick(self, known_settings);
-      $window.localStorage[localStorageKey] = JSON.stringify(to_save);
+      var toSave = _.pick(self, knownSettings);
+      $window.localStorage[localStorageKey] = JSON.stringify(toSave);
     };
 
     self.load = function() {
-      var to_restore = JSON.parse($window.localStorage[localStorageKey] || '{}');
+      var toRestore = JSON.parse($window.localStorage[localStorageKey] || '{}');
 
-      _.each(to_restore, function(val, key) {
+      _.each(toRestore, function(val, key) {
         self[key] = val;
       });
     };
 
-    self.clear_storage = function() {
+    self.clearStorage = function() {
       $window.localStorage[localStorageKey] = JSON.stringify({});
     };
 
-    self.reset_all();
+    self.resetAll();
 
     return self;
 

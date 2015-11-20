@@ -5,11 +5,13 @@ angular.module('WatchTimer')
 
     // noops for until the audio has been set up
     sounds.play = function() {};
+
     sounds.loop = function() {};
+
     sounds.stopAll = function() {};
 
-    var alert_src = "sounds/Electronic_Chime-KevanGC-495939803.mp3";
-    var alarm_src = "sounds/Siren_Noise-KevanGC-1337458893.mp3";
+    var alertSource = 'sounds/Electronic_Chime-KevanGC-495939803.mp3';
+    var alarmSource = 'sounds/Siren_Noise-KevanGC-1337458893.mp3';
 
     $ionicPlatform.ready(
       function() {
@@ -22,18 +24,18 @@ angular.module('WatchTimer')
     );
 
     function setupNativeAudio() {
-      console.log("Using NativeAudio");
+      console.log('Using NativeAudio');
 
       function callbackSuccess(msg) {
-        console.log("NativeAudio success: " + msg);
+        console.log('NativeAudio success: ' + msg);
       }
 
       function callbackError(error) {
-        console.log("NativeAudio error: " + error);
+        console.log('NativeAudio error: ' + error);
       }
 
       $cordovaNativeAudio
-        .preloadComplex('alert', alert_src,
+        .preloadComplex('alert', alertSource,
           1, // Volume
           1, // voices
           0, // delay
@@ -41,7 +43,7 @@ angular.module('WatchTimer')
           callbackError);
 
       $cordovaNativeAudio
-        .preloadComplex('alarm', alarm_src,
+        .preloadComplex('alarm', alarmSource,
           1, // Volume
           1, // voices
           0, // delay
@@ -62,7 +64,7 @@ angular.module('WatchTimer')
         // console.log("in loop");
         $cordovaNativeAudio.stop('alert', callbackSuccess, callbackError);
         $cordovaNativeAudio.stop('alarm', callbackSuccess, callbackError);
-      }
+      };
 
       // Sometimes between restarts the audio is not stopped. Stop it here so
       // that we know it is not playing at the begining of a dev run.
@@ -72,11 +74,11 @@ angular.module('WatchTimer')
 
     function setupHtml5Audio() {
       // in browser
-      console.log("Using HTML5 Audio");
+      console.log('Using HTML5 Audio');
 
       var audios = {
-        alert: $('<audio><source src="/' + alert_src + '" type="audio/mpeg"></audio>')[0],
-        alarm: $('<audio><source src="/' + alarm_src + '" type="audio/mpeg"></audio>')[0],
+        alert: $('<audio><source src="/' + alertSource + '" type="audio/mpeg"></audio>')[0],
+        alarm: $('<audio><source src="/' + alarmSource + '" type="audio/mpeg"></audio>')[0],
       };
 
       sounds.play = function(id) {
@@ -88,6 +90,7 @@ angular.module('WatchTimer')
         audio.onended = function() {
           audio.play();
         };
+
         audio.play();
       };
 
@@ -98,7 +101,7 @@ angular.module('WatchTimer')
           audio.pause();
           audio.currentTime = 0;
         });
-      }
+      };
     }
 
     return sounds;

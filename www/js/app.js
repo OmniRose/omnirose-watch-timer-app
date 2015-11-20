@@ -7,6 +7,7 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
@@ -28,34 +29,38 @@ angular.module('WatchTimer', ['ionic', 'ngCordova'])
     url: '/timer',
     templateUrl: 'templates/timer.html',
     onEnter: function(timer) {
-      console.log("timer onEnter");
+      console.log('timer onEnter');
       timer.stop();
-      timer.start_updating();
+      timer.startUpdating();
     },
+
     onExit: function(timer) {
-      console.log("timer onExit");
-      timer.stop_updating();
+      console.log('timer onExit');
+      timer.stopUpdating();
     },
-    controller: "TimerCtrl"
+
+    controller: 'TimerCtrl',
   });
 
   $stateProvider.state('top.alarm', {
     url: '/alarm',
     templateUrl: 'templates/alarm.html',
     onEnter: function(timer, checkins) {
-      console.log("alarm onEnter");
-      checkins.start_updating();
+      console.log('alarm onEnter');
+      checkins.startUpdating();
     },
+
     onExit: function(checkins) {
-      console.log("alarm onExit");
-      checkins.stop_updating();
+      console.log('alarm onExit');
+      checkins.stopUpdating();
     },
-    controller: "AlarmCtrl"
+
+    controller: 'AlarmCtrl',
   });
 
   $stateProvider.state('top.settings', {
     url: '/settings',
-    templateUrl: 'templates/settings.html'
+    templateUrl: 'templates/settings.html',
   });
 
 });

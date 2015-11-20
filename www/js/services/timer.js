@@ -3,9 +3,9 @@ angular.module('WatchTimer')
     var self = this;
 
     self.isRunning = false;
-    self.current_state = 'stopped';
+    self.currentState = 'stopped';
 
-    self.end_time = undefined;
+    self.endTime = undefined;
 
     // the "-0.8" is there so that after starting or restarting the timer the
     // time changes quickly. This is to give the user a quick response that
@@ -13,29 +13,31 @@ angular.module('WatchTimer')
     self.duration = 15 * 60;
     self.duration -= 0.8;
 
-    // listed in ascending cutoff order so that the code in _get_current_state
+    // listed in ascending cutoff order so that the code in _getCurrentState
     // will work correctly.
-    self.states = [{
-      name: "alarming",
-      cutoff: -3 // FIXME -3 * 60
-    }, {
-      name: "alerting",
-      cutoff: 0
-    }, {
-      name: "notifying",
-      cutoff: 2 * 60
-    }, {
-      name: "running",
-      cutoff: 1000000000
-    }, {
-      name: "stopped",
-      cutoff: undefined
-    }, ];
+    self.states = [
+      {
+        name: 'alarming',
+        cutoff: -3, // FIXME -3 * 60
+      }, {
+        name: 'alerting',
+        cutoff: 0,
+      }, {
+        name: 'notifying',
+        cutoff: 2 * 60,
+      }, {
+        name: 'running',
+        cutoff: 1000000000,
+      }, {
+        name: 'stopped',
+        cutoff: undefined,
+      },
+    ];
 
     self.start = function() {
-      var end_time = new Date();
-      end_time.setTime(end_time.getTime() + self.duration * 1000);
-      self.end_time = end_time;
+      var endTime = new Date();
+      endTime.setTime(endTime.getTime() + self.duration * 1000);
+      self.endTime = endTime;
 
       self.isRunning = true;
 
@@ -50,22 +52,23 @@ angular.module('WatchTimer')
     self.change = function(amount) {
       if (self.isRunning) {
         var now = new Date();
-        var new_end_time = new Date();
-        new_end_time.setTime(self.end_time.getTime() + amount * 1000);
+        var newEndTime = new Date();
+        newEndTime.setTime(self.endTime.getTime() + amount * 1000);
 
-        if (new_end_time > now) {
-          self.end_time = new_end_time;
+        if (newEndTime > now) {
+          self.endTime = newEndTime;
         }
       } else {
-        var new_duration = self.duration + amount;
-        if (new_duration > 0) {
-          self.duration = new_duration;
+        var newDuration = self.duration + amount;
+        if (newDuration > 0) {
+          self.duration = newDuration;
         }
       }
-      self.update();
-    }
 
-    self._get_current_state = function() {
+      self.update();
+    };
+
+    self._getCurrentState = function() {
       if (!self.isRunning) {
         return 'stopped';
       }
@@ -81,41 +84,38 @@ angular.module('WatchTimer')
       return state.name;
     };
 
-
-
     self.remaining = function() {
       var now = new Date();
-      return (self.end_time - now) / 1000;
+      return (self.endTime - now) / 1000;
     };
 
     // -----------------------
 
     self.update = function() {
-      self.current_state = self._get_current_state();
-      self.time_to_display = self.isRunning ? self.remaining() : self.duration;
+      self.currentState = self._getCurrentState();
+      self.timeToDisplay = self.isRunning ? self.remaining() : self.duration;
     };
 
-    self.start_updating = function() {
+    self.startUpdating = function() {
       self.update();
 
       // Try to start on the change in time
-      var initial_delay = Math.ceil(self.remaining() % 1 * 1000);
+      var initialDelay = Math.ceil(self.remaining() % 1 * 1000);
 
       $timeout(function() {
         self.update();
-        self._update_id = $interval(function() {
+        self._updateId = $interval(function() {
           self.update();
         }, 1000);
-      }, initial_delay);
+      }, initialDelay);
 
     };
 
-    self.stop_updating = function() {
-      $interval.cancel(self._update_id);
+    self.stopUpdating = function() {
+      $interval.cancel(self._updateId);
     };
 
     // --------------------------
-
 
     return self;
 

@@ -1,12 +1,13 @@
 angular.module('WatchTimer')
   .filter('hhmmss', function() {
 
-    function format_number(number) {
+    function formatNumber(number) {
       number = Math.floor(number);
-      string = number + "";
+      string = number + '';
       if (string.length < 2) {
-        string = "0" + string;
+        string = '0' + string;
       }
+
       return string;
     };
 
@@ -17,16 +18,16 @@ angular.module('WatchTimer')
       var minutes = Math.floor(duration / 60 % 60);
       var seconds = Math.floor(duration % 60);
 
-      var hhmmss = "";
+      var hhmmss = '';
 
       if (hours) {
-        hhmmss += format_number(hours);
-        hhmmss += ":";
+        hhmmss += formatNumber(hours);
+        hhmmss += ':';
       }
 
-      hhmmss += format_number(minutes);
-      hhmmss += ":";
-      hhmmss += format_number(seconds);
+      hhmmss += formatNumber(minutes);
+      hhmmss += ':';
+      hhmmss += formatNumber(seconds);
 
       return hhmmss;
     };

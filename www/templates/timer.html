@@ -1,11 +1,11 @@
 <ion-pane>
   <ion-content
     scroll="false"
-    ng-class="'timer-state-' + timer.current_state"
-    on-tap="start_timer()"
-    on-hold="stop_timer()"
-    on-swipe-up="increment_timer()"
-    on-swipe-down="decrement_timer()"
+    ng-class="'timer-state-' + timer.currentState"
+    on-tap="startTimer()"
+    on-hold="stopTimer()"
+    on-swipe-up="incrementTimer()"
+    on-swipe-down="decrementTimer()"
   >
 
     <div id="timer-current-time">
@@ -13,17 +13,17 @@
         resize-text-to-fill
         ng-cloak
       >
-        {{ timer.time_to_display | hhmmss }}
+        {{ timer.timeToDisplay | hhmmss }}
       </span>
     </div>
 
   </ion-content>
 
   <ion-footer-bar>
-    <button ng-click="increment_timer()" class="button button-icon icon ion-plus"></button>
-    <button ng-click="decrement_timer()" class="button button-icon  icon ion-minus"></button>
+    <button ng-click="incrementTimer()" class="button button-icon icon ion-plus"></button>
+    <button ng-click="decrementTimer()" class="button button-icon  icon ion-minus"></button>
     <div class="title">
-      <button ng-click="toggle_timer()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
+      <button ng-click="toggleTimer()" ng-class="timer.isRunning ? 'ion-stop' : 'ion-play'" class="button button-icon icon"></button>
     </div>
     <button ui-sref="top.settings" class="button button-icon icon ion-gear-b"></button>
   </ion-footer-bar>
