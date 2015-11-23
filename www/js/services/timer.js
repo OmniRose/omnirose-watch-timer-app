@@ -6,6 +6,10 @@ angular.module('WatchTimer')
     self.currentState = 'stopped';
 
     self.endTime = undefined;
+    self.alertTime = undefined;
+    self.alarmTime = undefined;
+
+    self.alarmIntervalAfterEnd = 3 * 60;
 
     // the "-0.8" is there so that after starting or restarting the timer the
     // time changes quickly. This is to give the user a quick response that
@@ -18,7 +22,7 @@ angular.module('WatchTimer')
     self.states = [
       {
         name: 'alarming',
-        cutoff: -3, // FIXME -3 * 60
+        cutoff: -self.alarmIntervalAfterEnd,
       }, {
         name: 'alerting',
         cutoff: 0,
@@ -27,7 +31,7 @@ angular.module('WatchTimer')
         cutoff: 2 * 60,
       }, {
         name: 'running',
-        cutoff: 1000000000,
+        cutoff: Infinity,
       }, {
         name: 'stopped',
         cutoff: undefined,
@@ -35,10 +39,10 @@ angular.module('WatchTimer')
     ];
 
     self.start = function() {
-      var endTime = new Date();
-      endTime.setTime(endTime.getTime() + self.duration * 1000);
-      self.endTime = endTime;
-
+      var now = new Date();
+      self.endTime = new Date(now.getTime() + self.duration * 1000);
+      self.alertTime = self.endTime;
+      self.alarmTime = new Date(self.endTime.getTime() + self.alarmIntervalAfterEnd * 1000);
       self.isRunning = true;
 
       self.update();
@@ -46,6 +50,9 @@ angular.module('WatchTimer')
 
     self.stop = function() {
       self.isRunning = false;
+      self.endTime = undefined;
+      self.alertTime = undefined;
+      self.alarmTime = undefined;
       self.update();
     };
 
