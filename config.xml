@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.omnirose.watch-timer-app" version="0.0.1">
-    <name>OmniRose watch timer</name>
-    <description>
+<widget id="com.omnirose.watch-timer-app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>OmniRose watch timer</name>
+  <description>
         A simple timer for people standing watch on ships.
     </description>
-    <author email="hello@omnirose.com" href="http://www.omnirose.com/">
+  <author email="hello@omnirose.com" href="http://www.omnirose.com/">
       OmniRose
     </author>
-    <content src="index.html"/>
-    <access origin="*"/>
-    <preference name="webviewbounce" value="false"/>
-    <preference name="UIWebViewBounce" value="false"/>
-    <preference name="DisallowOverscroll" value="true"/>
-    <preference name="android-minSdkVersion" value="16"/>
-    <preference name="BackupWebStorage" value="none"/>
-    <preference name="Orientation" value="default"/>
-    <platform name="ios">
-        <preference name="Orientation" value="all"/>
-    </platform>
-    <feature name="StatusBar">
-        <param name="ios-package" onload="true" value="CDVStatusBar"/>
-    </feature>
-    <plugin name="cordova-plugin-file" spec="~3.0.0"/>
-    <plugin name="cordova-plugin-media" spec="~1.0.1"/>
-    <plugin name="cordova-plugin-console" spec="~1.0.1"/>
-    <plugin name="cordova-plugin-nativeaudio" spec="~3.0.6"/>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="android-minSdkVersion" value="16"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <preference name="Orientation" value="default"/>
+  <platform name="ios">
+    <preference name="Orientation" value="all"/>
+  </platform>
+  <feature name="StatusBar">
+    <param name="ios-package" onload="true" value="CDVStatusBar"/>
+  </feature>
+  <plugin name="cordova-plugin-file" spec="~3.0.0"/>
+  <plugin name="cordova-plugin-media" spec="~1.0.1"/>
+  <plugin name="cordova-plugin-console" spec="~1.0.1"/>
+  <plugin name="cordova-plugin-nativeaudio" spec="~3.0.6"/>
+  <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.2"/>
 </widget>
