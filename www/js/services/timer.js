@@ -9,6 +9,9 @@ angular.module('WatchTimer')
     self.alertTime = undefined;
     self.alarmTime = undefined;
 
+    var alertNotificationId = 1;
+    var alarmNotificationId = 2;
+
     self.alarmIntervalAfterEnd = 3 * 60;
 
     // the "-0.8" is there so that after starting or restarting the timer the
@@ -39,21 +42,51 @@ angular.module('WatchTimer')
     ];
 
     self.start = function() {
-      var now = new Date();
-      self.endTime = new Date(now.getTime() + self.duration * 1000);
-      self.alertTime = self.endTime;
-      self.alarmTime = new Date(self.endTime.getTime() + self.alarmIntervalAfterEnd * 1000);
       self.isRunning = true;
-
+      self.setTimesAndNotifications();
       self.update();
     };
 
     self.stop = function() {
       self.isRunning = false;
+      self.clearTimesAndNotifications();
+      self.update();
+    };
+
+    self.setTimesAndNotifications = function() {
+      var now = new Date();
+      self.endTime = new Date(now.getTime() + self.duration * 1000);
+      self.alertTime = self.endTime;
+      self.alarmTime = new Date(self.endTime.getTime() + self.alarmIntervalAfterEnd * 1000);
+
+      if (window.plugin && window.plugin.notification) {
+        window.plugin.notification.local.schedule([
+          {
+            id: alertNotificationId,
+            at: self.alertTime,
+            text: 'Checkin due',
+          },
+          {
+            id: alarmNotificationId,
+            at: self.alarmTime,
+            text: 'Checkin overdue',
+          },
+        ]);
+      };
+
+    };
+
+    self.clearTimesAndNotifications = function() {
       self.endTime = undefined;
       self.alertTime = undefined;
       self.alarmTime = undefined;
-      self.update();
+
+      if (window.plugin && window.plugin.notification) {
+        window.plugin.notification.local.clear([
+          alertNotificationId,
+          alarmNotificationId,
+        ]);
+      }
     };
 
     self.change = function(amount) {
