@@ -21,32 +21,35 @@ describe('timer', function() {
     jasmine.clock().uninstall();
   });
 
-  describe('end time changes', function() {
+  it('should set various times correctly', function() {
+    var now = new Date();
+    var duration = timer.duration;
 
-    it('test', function() {
+    expect(timer.endTime).toBeUndefined();
+    expect(timer.alertTime).toBeUndefined();
+    expect(timer.alarmTime).toBeUndefined();
 
-      var duration = 15 * 60 - 0.8;
-      var now = new Date();
+    timer.start();
 
-      expect(timer.duration).toBe(duration);
+    expect(timer.endTime.getTime()).toBe(now.getTime() + duration * 1000);
+    expect(timer.alertTime.getTime()).toBe(now.getTime() + duration * 1000);
+    expect(timer.alarmTime.getTime()).toBe(now.getTime() + (duration + timer.alarmIntervalAfterEnd) * 1000);
 
-      expect(timer.endTime).toBeUndefined();
-      expect(timer.alertTime).toBeUndefined();
-      expect(timer.alarmTime).toBeUndefined();
+    timer.stop();
 
-      timer.start();
-
-      expect(timer.endTime.getTime()).toBe(now.getTime() + duration * 1000);
-      expect(timer.alertTime.getTime()).toBe(now.getTime() + duration * 1000);
-      expect(timer.alarmTime.getTime()).toBe(now.getTime() + (duration + timer.alarmIntervalAfterEnd) * 1000);
-
-      timer.stop();
-
-      expect(timer.endTime).toBeUndefined();
-      expect(timer.alertTime).toBeUndefined();
-      expect(timer.alarmTime).toBeUndefined();
-    });
-
+    expect(timer.endTime).toBeUndefined();
+    expect(timer.alertTime).toBeUndefined();
+    expect(timer.alarmTime).toBeUndefined();
   });
+
+  // it('should set alarms correctly', function() {
+  //   var now = new Date();
+  //   var duration = timer.duration;
+  //
+  //   // fake the local notification
+  //   var notificationLocal = {};
+  //   window.plugin = {notification: {local: notificationLocal}};
+  //
+  // });
 
 });
