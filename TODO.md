@@ -1,21 +1,23 @@
 # TODO
 
-## Alpha
+## MVP - daytime countdown
 
-* Style the screen nicely
-* Add settings
+* alert/alarm even when app is in background
 
-## Beta
+## Store settings between sessions
+
+* Store the duration between sessions
+
+## Basic settings
+
+* Day and night mode
+* Prevent sleep mode
+
+## Geolocation
+
+* Store location on each checkin
+* display last checkin location on alarm page
+
+## Additional smarts
 
 * Use location to set brightness of screen - should be an option
-* Store the duration between sessions
-* Let user change settings in config
-* Day and Night modes
-
-## Trickier
-
-* Trigger alerts and alarms even when app is in background.
-
-## Nice to have
-
-* Store location for past interactions as a thing to refer to if there is a MOB situation.
