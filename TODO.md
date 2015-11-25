@@ -1,8 +1,14 @@
 # TODO
 
-## MVP - daytime countdown
+## MVP
 
-* alert/alarm even when app is in background
+* On device app alerts but does not play sound
+
+## Release app to beta testers
+
+* check through app guidelines
+* check through iOS UI guidelines
+* set up TestFlight account
 
 ## Store settings between sessions
 

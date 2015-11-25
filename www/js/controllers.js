@@ -63,9 +63,7 @@ angular.module('WatchTimer')
     $scope.secondsSincelastcheckin = checkins.secondsSincelastcheckin;
 
     // Trigger the alarm sound
-    console.log('FIXME - re-enable alarm sound here');
-
-    // sounds.loop('alarm');
+    sounds.loop('alarm');
 
     $scope.silence = function(clickEvent) {
       sounds.stopAll();
