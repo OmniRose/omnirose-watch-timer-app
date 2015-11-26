@@ -17,6 +17,7 @@
   <preference name="Orientation" value="default"/>
   <platform name="ios">
     <preference name="Orientation" value="all"/>
+    <hook type="after_prepare" src="scripts/ios-after-prepare-hook.js" />
   </platform>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
