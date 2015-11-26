@@ -105,6 +105,8 @@ angular.module('WatchTimer')
         }
       }
 
+      // FIXME - setTimesAndNotifications here too
+
       self.update();
     };
 
