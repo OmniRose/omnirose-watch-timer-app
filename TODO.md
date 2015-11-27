@@ -2,8 +2,8 @@
 
 ## MVP
 
-* On device app alerts but does not play sound
 * add setTimesAndNotifications to change () too
+* Remember duration set and endTime between app runs
 
 ## Release app to beta testers
 

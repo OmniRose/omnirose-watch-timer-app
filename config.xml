@@ -17,6 +17,7 @@
   <preference name="Orientation" value="default"/>
   <platform name="ios">
     <preference name="Orientation" value="all"/>
+    <preference name="iosPersistentFileLocation" value="Library"/>
     <hook type="after_prepare" src="scripts/ios-after-prepare-hook.js" />
   </platform>
   <feature name="StatusBar">

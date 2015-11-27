@@ -1,4 +1,5 @@
 {
-	"preset": "airbnb",
-	"safeContextKeyword": null
+  "preset": "airbnb",
+  "safeContextKeyword": null,
+  "disallowSpacesInsideArrayBrackets": null
 }

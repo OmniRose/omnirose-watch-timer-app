@@ -29,7 +29,7 @@ angular.module('WatchTimer')
     timer.change(-60);
   };
 
-  timer.duration = 1.2;
+  timer.duration = 4.2;
 
   // timer.start(); // FIXME
 
