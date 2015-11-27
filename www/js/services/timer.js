@@ -9,7 +9,7 @@ angular.module('WatchTimer')
     self.alertTime = undefined;
     self.alarmTime = undefined;
 
-    self.alarmIntervalAfterEnd = 3 * 60;
+    self.alarmIntervalAfterEnd = 30; //3 * 60;
 
     // the "-0.8" is there so that after starting or restarting the timer the
     // time changes quickly. This is to give the user a quick response that
@@ -38,20 +38,25 @@ angular.module('WatchTimer')
 
     self.start = function() {
       self.isRunning = true;
-      self.setTimesAndNotifications();
+      var now = new Date();
+      var endTime = new Date(now.getTime() + self.duration * 1000);
+      self.setTimesAndNotifications(endTime);
       self.update();
     };
 
     self.stop = function() {
       self.isRunning = false;
-      self.clearTimesAndNotifications();
+      self.clearTimesAndCancelNotifications();
       self.update();
     };
 
-    self.setTimesAndNotifications = function() {
-      var now = new Date();
-      self.endTime = new Date(now.getTime() + self.duration * 1000);
-      self.alertTime = self.endTime;
+    self.setTimesAndNotifications = function(endTime) {
+
+      // make sure we have a clean slate
+      self.clearTimesAndCancelNotifications();
+
+      self.endTime = endTime;
+      self.alertTime = new Date(self.endTime.getTime());
       self.alarmTime = new Date(self.endTime.getTime() + self.alarmIntervalAfterEnd * 1000);
 
       if (window.plugin && window.plugin.notification) {
@@ -100,24 +105,23 @@ angular.module('WatchTimer')
 
     };
 
-    self.clearTimesAndNotifications = function() {
+    self.clearTimesAndCancelNotifications = function() {
       self.endTime = undefined;
       self.alertTime = undefined;
       self.alarmTime = undefined;
 
       if (window.plugin && window.plugin.notification) {
-        window.plugin.notification.local.clearAll();
+        window.plugin.notification.local.cancelAll();
       }
     };
 
     self.change = function(amount) {
       if (self.isRunning) {
         var now = new Date();
-        var newEndTime = new Date();
-        newEndTime.setTime(self.endTime.getTime() + amount * 1000);
+        var newEndTime = new Date(self.endTime.getTime() + amount * 1000);
 
         if (newEndTime > now) {
-          self.endTime = newEndTime;
+          self.setTimesAndNotifications(newEndTime);
         }
       } else {
         var newDuration = self.duration + amount;

@@ -2,7 +2,6 @@
 
 ## MVP
 
-* add setTimesAndNotifications to change () too
 * Remember duration set and endTime between app runs
 
 ## Release app to beta testers
