@@ -94,7 +94,7 @@ angular.module('WatchTimer')
             id: notificationId++,
             at: specificAlarmTime,
             every: 'minute',
-            text: 'Check-in overdue - was due ' + howLongAgo(specificAlarmTime, self.alertTime),
+            text: 'Check-in overdue]',
             sound: 'file://' + sounds.alarmSource,
           });
           specificAlarmTime = new Date(specificAlarmTime.getTime() + alarmNotificationInterval);
