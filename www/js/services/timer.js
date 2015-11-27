@@ -22,24 +22,22 @@ angular.module('WatchTimer')
 
     // listed in ascending cutoff order so that the code in _getCurrentState
     // will work correctly.
-    self.states = [
-      {
-        name: 'alarming',
-        cutoff: -self.alarmIntervalAfterEnd,
-      }, {
-        name: 'alerting',
-        cutoff: 0,
-      }, {
-        name: 'notifying',
-        cutoff: 2 * 60,
-      }, {
-        name: 'running',
-        cutoff: Infinity,
-      }, {
-        name: 'stopped',
-        cutoff: undefined,
-      },
-    ];
+    self.states = [{
+      name: 'alarming',
+      cutoff: -self.alarmIntervalAfterEnd,
+    }, {
+      name: 'alerting',
+      cutoff: 0,
+    }, {
+      name: 'notifying',
+      cutoff: 2 * 60,
+    }, {
+      name: 'running',
+      cutoff: Infinity,
+    }, {
+      name: 'stopped',
+      cutoff: undefined,
+    }, ];
 
     self.start = function() {
       self.isRunning = true;
