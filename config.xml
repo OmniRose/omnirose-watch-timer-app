@@ -18,7 +18,7 @@
   <platform name="ios">
     <preference name="Orientation" value="all"/>
     <preference name="iosPersistentFileLocation" value="Library"/>
-    <hook type="after_prepare" src="scripts/ios-after-prepare-hook.js" />
+    <hook type="after_prepare" src="scripts/ios-after-prepare-hook.js"/>
   </platform>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>

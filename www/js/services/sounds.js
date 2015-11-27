@@ -10,8 +10,8 @@ angular.module('WatchTimer')
 
     sounds.stopAll = function() {};
 
-    var alertSource = 'sounds/Electronic_Chime-KevanGC-495939803.mp3';
-    var alarmSource = 'sounds/Siren_Noise-KevanGC-1337458893.mp3';
+    sounds.alertSource = 'sounds/Electronic_Chime-KevanGC-495939803.mp3';
+    sounds.alarmSource = 'sounds/Siren_Noise-KevanGC-1337458893.mp3';
 
     $ionicPlatform.ready(
       function() {
@@ -35,7 +35,7 @@ angular.module('WatchTimer')
       }
 
       $cordovaNativeAudio
-        .preloadComplex('alert', alertSource,
+        .preloadComplex('alert', sounds.alertSource,
           1, // Volume
           1, // voices
           0, // delay
@@ -43,7 +43,7 @@ angular.module('WatchTimer')
           callbackError);
 
       $cordovaNativeAudio
-        .preloadComplex('alarm', alarmSource,
+        .preloadComplex('alarm', sounds.alarmSource,
           1, // Volume
           1, // voices
           0, // delay
@@ -77,8 +77,8 @@ angular.module('WatchTimer')
       console.log('Using HTML5 Audio');
 
       var audios = {
-        alert: $('<audio><source src="/' + alertSource + '" type="audio/mpeg"></audio>')[0],
-        alarm: $('<audio><source src="/' + alarmSource + '" type="audio/mpeg"></audio>')[0],
+        alert: $('<audio><source src="/' + sounds.alertSource + '" type="audio/mpeg"></audio>')[0],
+        alarm: $('<audio><source src="/' + sounds.alarmSource + '" type="audio/mpeg"></audio>')[0],
       };
 
       sounds.play = function(id) {

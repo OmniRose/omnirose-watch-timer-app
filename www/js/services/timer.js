@@ -1,5 +1,5 @@
 angular.module('WatchTimer')
-  .factory('timer', function($rootScope, $interval, $timeout) {
+  .factory('timer', function($rootScope, $interval, $timeout, sounds) {
     var self = this;
 
     self.isRunning = false;
@@ -8,9 +8,6 @@ angular.module('WatchTimer')
     self.endTime = undefined;
     self.alertTime = undefined;
     self.alarmTime = undefined;
-
-    var alertNotificationId = 1;
-    var alarmNotificationId = 2;
 
     self.alarmIntervalAfterEnd = 3 * 60;
 
@@ -58,18 +55,47 @@ angular.module('WatchTimer')
       self.alarmTime = new Date(self.endTime.getTime() + self.alarmIntervalAfterEnd * 1000);
 
       if (window.plugin && window.plugin.notification) {
-        window.plugin.notification.local.schedule([
-          {
-            id: alertNotificationId,
-            at: self.alertTime,
-            text: 'Checkin due',
-          },
-          {
-            id: alarmNotificationId,
-            at: self.alarmTime,
-            text: 'Checkin overdue',
-          },
-        ]);
+
+        var notificationId = 1;
+        var notifications = [];
+
+        var alertNotificationInterval = 5 * 1000;
+        var specificAlertTime = new Date(self.alertTime.getTime());
+
+        var alarmNotificationInterval = 10 * 1000; // slightly longer than the siren sound
+        var specificAlarmTime = new Date(self.alarmTime.getTime());
+        var alarmTimePlusOneMinute = new Date(self.alarmTime.getTime() + 60 * 1000);
+
+        var howLongAgo = function(now, time) {
+          var millis = now - time;
+          var secs = millis / 1000;
+          return secs ? secs + ' seconds ago' : 'now';
+        };
+
+        // create alerts leading up to the alarm
+        while (specificAlertTime < self.alarmTime) {
+          notifications.push({
+            id: notificationId++,
+            at: specificAlertTime,
+            title: 'Check-in due ' + howLongAgo(specificAlertTime, self.alertTime),
+            sound: 'file://' + sounds.alertSource,
+          });
+          specificAlertTime = new Date(specificAlertTime.getTime() + alertNotificationInterval);
+        }
+
+        // create alarms indefinately
+        while (specificAlarmTime < alarmTimePlusOneMinute) {
+          notifications.push({
+            id: notificationId++,
+            at: specificAlarmTime,
+            every: 'minute',
+            text: 'Check-in overdue - was due ' + howLongAgo(specificAlarmTime, self.alertTime),
+            sound: 'file://' + sounds.alarmSource,
+          });
+          specificAlarmTime = new Date(specificAlarmTime.getTime() + alarmNotificationInterval);
+        }
+
+        window.plugin.notification.local.schedule(notifications);
       };
 
     };
@@ -80,10 +106,7 @@ angular.module('WatchTimer')
       self.alarmTime = undefined;
 
       if (window.plugin && window.plugin.notification) {
-        window.plugin.notification.local.clear([
-          alertNotificationId,
-          alarmNotificationId,
-        ]);
+        window.plugin.notification.local.clearAll();
       }
     };
 
